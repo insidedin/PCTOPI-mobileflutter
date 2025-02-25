@@ -1,2 +1,10 @@
 Kelas GPA38A
 Triwulan 3 Materi Mobile Programming (Flutter)
+
+Aplikasi Pengelolaan Stok Barang 
+- Dashboard Admin (Data Pelaporan)
+- Suplier (Data Suplier penyedia barang)
+- Barang (Data Barang Masuk+Barang Keluar)
+- Penjualan (Data Barang Terjual & Barang Dibeli)
+
+Penerapan CRUD menggunakan Firebase Firestore dan Authentication 
