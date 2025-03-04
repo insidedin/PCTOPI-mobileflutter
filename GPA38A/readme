@@ -6,5 +6,6 @@ Aplikasi Pengelolaan Stok Barang
 - Suplier (Data Suplier penyedia barang)
 - Barang (Data Barang Masuk+Barang Keluar)
 - Penjualan (Data Barang Terjual & Barang Dibeli)
+- Penerapan CRUD menggunakan Firebase Firestore dan Authentication
 
-Penerapan CRUD menggunakan Firebase Firestore dan Authentication 
+Ketentuan pemindahan file ke vscode
