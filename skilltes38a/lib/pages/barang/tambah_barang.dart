@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:skilltes38a/widgets/widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TambahBarang extends StatefulWidget {
   const TambahBarang({super.key});
@@ -14,11 +15,26 @@ class _TambahBarangState extends State<TambahBarang> {
   final TextEditingController jenisController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
 
+  String? selectedSuplier; // Suplier yang dipilih
+
+  // Fungsi untuk mengambil daftar suplier dari Firestore
+  Future<List<String>> getSupliers() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('suplier').get();
+
+    List<String> supliers = snapshot.docs
+        .map((doc) => doc['nama'].toString()) // Ambil nama suplier
+        .toList();
+
+    return supliers;
+  }
+
   // Fungsi tambah data barang ke Firestore
   void tambahBarang() async {
     if (barangController.text.isEmpty ||
         jenisController.text.isEmpty ||
-        stockController.text.isEmpty) {
+        stockController.text.isEmpty ||
+        selectedSuplier == null) {
       // Menampilkan pesan jika ada field yang kosong
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Harap isi semua field sebelum menyimpan!')),
@@ -31,6 +47,7 @@ class _TambahBarangState extends State<TambahBarang> {
         'barang': barangController.text,
         'jenis': jenisController.text,
         'stock': stockController.text,
+        'suplier': selectedSuplier, // Tambahkan suplier
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -71,6 +88,54 @@ class _TambahBarangState extends State<TambahBarang> {
             SizedBox(height: 20),
             inputView(
                 stockController, 1, 'Stock Barang', 'Masukkan Jumlah Stock!'),
+            SizedBox(height: 20),
+
+            // Dropdown Suplier
+            FutureBuilder<List<String>>(
+              future: getSupliers(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+
+                List<String> supliers = snapshot.data!;
+                return DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'Pilih Suplier',
+                    border: OutlineInputBorder(),
+                    labelStyle: GoogleFonts.poppins(
+                      color: const Color.fromARGB(255, 151, 151, 151),
+                      fontSize: 14,
+                    ),
+                    fillColor: const Color.fromARGB(255, 232, 232, 232),
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 151, 151, 151),
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  value: selectedSuplier,
+                  items: supliers.map((suplier) {
+                    return DropdownMenuItem(
+                      value: suplier,
+                      child: textView(EdgeInsets.all(0), suplier,
+                          TextAlign.left, Colors.black, FontWeight.w500, 16),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedSuplier = value;
+                    });
+                  },
+                );
+              },
+            ),
             SizedBox(height: 40),
             Center(
               child: ElevatedButton(

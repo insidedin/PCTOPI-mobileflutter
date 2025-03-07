@@ -5,10 +5,7 @@ import 'package:skilltes38a/pages/barang/edit_barang.dart';
 import 'package:skilltes38a/pages/barang/tambah_barang.dart';
 import 'package:skilltes38a/pages/home.dart';
 import 'package:skilltes38a/pages/login.dart';
-import 'package:skilltes38a/pages/pembelian/belipage.dart';
-import 'package:skilltes38a/pages/pembelian/tambah_beli.dart';
-import 'package:skilltes38a/pages/penjualan/jualpage.dart';
-import 'package:skilltes38a/pages/penjualan/tambah_jual.dart';
+import 'package:skilltes38a/pages/penjualan/barang_terjual.dart';
 import 'package:skilltes38a/pages/splashscreen.dart';
 import 'package:skilltes38a/pages/penjualan.dart';
 import 'package:skilltes38a/pages/suplier.dart';
@@ -31,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Navigation(),
+        '/': (context) => const Splashscreen(),
         '/login': (context) => const Login(),
         '/navigation': (context) => const Navigation(),
         '/home': (context) => const Home(),
@@ -39,19 +36,18 @@ class MyApp extends StatelessWidget {
         //route barang
         '/barang': (context) => const Barang(),
         '/tambahbarang': (context) => const TambahBarang(),
-        '/editbarang':  (context) => const EditBarang(),
+        '/editbarang': (context) => const EditBarang(
+              docId: '',
+            ),
 
         //route penjualan
         '/penjualan': (context) => const Penjualan(),
-        '/jualpage':  (context) => const JualPage(),
-        '/tambahjual':  (context) => const TambahJual(),
-        '/belipage':  (context) => const BeliPage(),
-        '/tambahbeli':  (context) => const TambahBeli(),
+        '/barangterjual': (context) => TambahBarangTerjual(),
 
         //route suplier
         '/suplier': (context) => const Suplier(),
         '/tambahsuplier': (context) => const TambahSuplier(),
-        '/editsuplier':  (context) => const EditSuplier(),
+        '/editsuplier': (context) => const EditSuplier(docId: ''),
       },
     );
   }

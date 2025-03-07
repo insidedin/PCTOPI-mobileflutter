@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skilltes38a/pages/suplier/edit_suplier.dart';
 import 'package:skilltes38a/widgets/widget.dart';
 
 class Suplier extends StatefulWidget {
@@ -44,7 +45,14 @@ class _SuplierState extends State<Suplier> {
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text("Belum ada data suplier"));
+                  return Center(
+                      child: textView(
+                          EdgeInsets.all(0),
+                          "Data Suplier tidak Tersedia",
+                          TextAlign.center,
+                          Colors.grey,
+                          FontWeight.w500,
+                          15));
                 }
 
                 return ListView.builder(
@@ -93,6 +101,14 @@ class _SuplierState extends State<Suplier> {
                             child: ListTile(
                               leading: const Icon(Icons.edit_document),
                               title: Text("Edit"),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditSuplier(docId: doc.id)),
+                                );
+                              },
                             ),
                           ),
                           PopupMenuItem<String>(

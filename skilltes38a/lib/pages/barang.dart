@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skilltes38a/pages/barang/edit_barang.dart';
 import 'package:skilltes38a/widgets/widget.dart';
 
 class Barang extends StatefulWidget {
@@ -44,8 +45,14 @@ class _BarangState extends State<Barang> {
                   }
 
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Center(
-                        child: Text("Belum ada Barang yang Tersedia"));
+                    return Center(
+                        child: textView(
+                            EdgeInsets.all(0),
+                            "Belum ada Barang yang Tersedia",
+                            TextAlign.center,
+                            Colors.grey,
+                            FontWeight.w500,
+                            15));
                   }
 
                   return ListView.builder(
@@ -96,10 +103,12 @@ class _BarangState extends State<Barang> {
                               icon: Icon(Icons.edit_square,
                                   color: Colors.yellow[700]),
                               onPressed: () {
-                                Navigator.pushNamed(
+                                Navigator.push(
                                   context,
-                                  '/editBarang',
-                                  arguments: doc.id, // Kirim ID dokumen
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EditBarang(docId: doc.id),
+                                  ),
                                 );
                               },
                             ),

@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
                     dashboardView('Data Barang', Icons.shopping_cart,
                         getDataCount('barang')),
                     dashboardView('Data Penjualan', Icons.shopping_bag,
-                        getDataCount('penjualan')),
+                        getDataCount('barang_terjual')),
                     dashboardView('Data Pembelian', Icons.shopping_basket,
                         getDataCount('pembelian')),
                     dashboardView(
